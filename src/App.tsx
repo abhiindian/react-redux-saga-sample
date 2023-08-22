@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Box } from '@mui/material';
+import { Header } from './components/Header';
+import AxiosWrapper from './services/wrapper/AxiosWrapper';
+import SnackbarComponent from './components/Snackbar';
+import BlogPosts from './components/BlogPosts';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  return (<>
+    <AxiosWrapper>
+      <SnackbarComponent />
+      <div style={{ flexGrow: 1 }}>
+        <Header />
+        <main style={{ margin: 2 }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              height: "100%",
+              flexDirection: "column",
+              marginTop: 3
+            }}
+          >
+            <BlogPosts />
+          </Box>
+        </main>
+      </div>
+    </AxiosWrapper>
+  </>
   );
+
+
 }
 
 export default App;
