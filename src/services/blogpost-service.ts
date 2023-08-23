@@ -12,27 +12,23 @@ export const getBlogPosts = async () => {
     requestUrl.searchParams.append('_start', '95');
     requestUrl.searchParams.append('_limit', '100');
     const response = await baseAxiosInstance.get(requestUrl.toString());
-    const res = await response.data.data;
-    return res;
+    return response;
 };
 
 export const postBlogPost = async (blogPost: BlogPostModel) => {
     const requestUrl = new URL(`${uri}`);
     const response = await baseAxiosInstance.post(requestUrl.toString(), blogPost);
-    const res = await response.data.data;
-    return res;
+    return response;
 };
 
 export const putBlogPost = async (blogPost: BlogPost) => {
-    const requestUrl = new URL(`${uri}`);
+    const requestUrl = new URL(`${uri}/${blogPost.id}`);
     const response = await baseAxiosInstance.put(requestUrl.toString(), blogPost);
-    const res = await response.data.data;
-    return res;
+    return response;
 };
 
 export const deleteBlogPost = async (id: number) => {
     const requestUrl = new URL(`${uri}/id`);
     const response = await baseAxiosInstance.delete(requestUrl.toString());
-    const res = await response.data.data;
-    return res;
+    return response;
 };

@@ -1,10 +1,22 @@
-import { Grid } from '@mui/material'
-import React from 'react'
+import { Backdrop, CircularProgress, Grid } from '@mui/material'
+import React, { useEffect } from 'react'
 import AddPost from './AddPost'
+import { useAppDispatch, useAppSelector } from '../app/hooks'
+import { RootState } from '../app/store'
+import Post from './Post'
+import { fetchPosts } from '../state/blogSlice'
+import UpdatePostDialog from './UpdatePostDialog'
+import { BlogPost } from '../types/BlogTypes'
 
 export default function BlogPosts() {
+    const { blogPosts, loading, selectedPost, openDialog } = useAppSelector((state: RootState) => state.blog);
+    const dispatch = useAppDispatch();
 
-    return (
+    useEffect(() => {
+        dispatch(fetchPosts());
+    }, []);
+
+    return (<>
         <Grid
             container
             flexDirection="column"
@@ -13,22 +25,22 @@ export default function BlogPosts() {
         >
             <Grid item xs={12}>
                 <AddPost />
-                {/*  {posts && posts.map((post) =>
+                {blogPosts && blogPosts.map((post) =>
                     <Post
                         key={post.id}
                         post={post}
-                        handleOpen={handleOpenDialog}
-                        handleDelete={handleDeletePost}
                     />
-                )} */}
+                )}
 
             </Grid>
-            {/* <UpdatePostDialog
+            <UpdatePostDialog
                 openDialog={openDialog}
-                handleClose={handleCloseDialog}
-                handleSave={handleSavePost}
-                handlePostChange={handleOpenDialogPostChange}
-            /> */}
+                selectedPost={selectedPost as BlogPost}
+            />
         </Grid>
+        <Backdrop open={loading}>
+            <CircularProgress />
+        </Backdrop>
+    </>
     )
 }

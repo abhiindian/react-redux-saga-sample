@@ -45,6 +45,8 @@ export default function AddPost() {
                 value={body}
                 onChange={handleBody}
                 label='Body'
+                multiline
+                rows={4}
             />
             <br />
             <Button
